@@ -10,7 +10,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:mxdev.helloWorld"
+		"*"
 	],
 	"main": "./extension.js",
 	"contributes": {
@@ -18,7 +18,11 @@
 			{
 				"command": "mxdev.helloWorld",
 				"title": "Hello World"
-			}
+			},
+            {
+                "command": "mxdev.openWebview",
+                "title": "mxDev辅助设计工具"
+            }
 		]
 	},
 	"scripts": {

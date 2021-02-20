@@ -25,6 +25,9 @@ function activate(context) {
 	});
 
 	context.subscriptions.push(disposable);
+
+    const openWebview = require('./src/openWebview');
+    openWebview(context);
 }
 // @ts-ignore
 exports.activate = activate;
