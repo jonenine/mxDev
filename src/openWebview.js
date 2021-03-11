@@ -1,6 +1,7 @@
 const vscode = require('vscode');
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
 const serviceSite = require('./serviceSite.js');
 
@@ -49,9 +50,17 @@ let panel;
  * @param {vscode.ExtensionContext} context 
  */
 module.exports = function (context) {
+    if(!vscode.workspace.workspaceFolders){
+        vscode.window.showErrorMessage('当前工作目录为空，请在工作目录下重新打开vs code！');
+    }
     //取出来为/d:/testWorkspace/vue/noCli,注意前面有一个/,在windows系统上需要去掉
     let foler0Path = vscode.workspace.workspaceFolders[0].uri.path;
-    if(foler0Path.startsWith('/'))  foler0Path = foler0Path.substring(1);
+
+    //windows系统要去掉前面的/
+    if(os.platform().startsWith('win')){
+        if(foler0Path.startsWith('/'))  foler0Path = foler0Path.substring(1);
+    }
+    
      //mxDev根目录
     const basePath = path.join(foler0Path, './.mxDev/');
 
