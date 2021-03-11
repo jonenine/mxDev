@@ -51,7 +51,7 @@ let panel;
  */
 module.exports = function (context) {
     if(!vscode.workspace.workspaceFolders){
-        vscode.window.showErrorMessage('当前工作目录为空，请在工作目录下重新打开vs code！');
+        vscode.window.showErrorMessage('当前工作目录为空，请在工作目录下重新打开vs code!');
     }
     //取出来为/d:/testWorkspace/vue/noCli,注意前面有一个/,在windows系统上需要去掉
     let foler0Path = vscode.workspace.workspaceFolders[0].uri.path;
