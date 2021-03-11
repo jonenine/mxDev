@@ -5,7 +5,7 @@
     "version": "0.1.0",
     "publisher": "jonenine",
     "engines": {
-        "vscode": "^1.53.0"
+        "vscode": "^1.43.0"
     },
     "categories": [
         "Other"
@@ -32,7 +32,7 @@
                 {
                     "id": "mxDev-sidebar",
                     "title": "mxDev辅助设计工具",
-                    "icon": "images/dev.svg"
+                    "icon": "images/mxDev.svg"
                 }
             ]
         },
@@ -41,7 +41,6 @@
               {
                 "id": "mxDev-start",
                 "name": "mxDev statr",
-                "icon": "media/dep.svg",
                 "contextualTitle": "开始"
               }
             ]

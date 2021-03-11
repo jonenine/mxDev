@@ -6,6 +6,7 @@ const os = require('os');
 const serviceSite = require('./serviceSite.js');
 
 const { info } = console;
+const isWin = os.platform().startsWith('win');
 
 
 /**
@@ -28,13 +29,15 @@ function getWebViewContent2(context) {
     return html;
 }
 
+const fileSpliter = isWin?'\\':'/';
+
 function confirmDir(filePath) {
     const dirPath = path.dirname(filePath);
     if (!fs.existsSync(dirPath)) {
-        const ss = dirPath.split('\\');
+        const ss = dirPath.split(fileSpliter);
         let dir = ss.shift();
         ss.forEach(s => {
-            dir += '\\' + s;
+            dir += fileSpliter + s;
             !fs.existsSync(dir) && fs.mkdirSync(dir);
         });
     }
@@ -57,7 +60,7 @@ module.exports = function (context) {
     let foler0Path = vscode.workspace.workspaceFolders[0].uri.path;
 
     //windows系统要去掉前面的/
-    if(os.platform().startsWith('win')){
+    if(isWin){
         if(foler0Path.startsWith('/'))  foler0Path = foler0Path.substring(1);
     }
     
