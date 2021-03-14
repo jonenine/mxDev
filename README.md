@@ -15,17 +15,17 @@ Interactive development tools for javascript web project ,such as vue react
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为采用了先进的组件显示技术，即使对层次较深的组件进行属性修改，视图刷新速度也会保持飞快。
 4.	完善的组件属性编辑支持，包括属性类型及属性说明提示等
 5.	支持html标签和vue第三方库标签<br>
-![1](https://user-images.githubusercontent.com/14857216/111057134-f93bd500-84bf-11eb-9588-bbea4c80c68e.jpg)
+![1](https://user-images.githubusercontent.com/14857216/111057134-f93bd500-84bf-11eb-9588-bbea4c80c68e.jpg)<br>
 
 ### 二．	不同区域说明 ###
 
 **1.	组件候选区**<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主要支持将html和vue第三方库的组件以图表方式罗列展示，并支持拖拽到右边的主编辑器区。<br>
-![2](https://user-images.githubusercontent.com/14857216/111057138-fb059880-84bf-11eb-8989-2bbfbba8ad69.jpg)
+![2](https://user-images.githubusercontent.com/14857216/111057138-fb059880-84bf-11eb-8989-2bbfbba8ad69.jpg)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目前只支持html &lt;DIV&gt;和element-ui绝大部分组件，未来还会完善html标签支持，支持slot，支持chart等第三方组件。
 
 **2.	属性编辑区**<br>
-![3](https://user-images.githubusercontent.com/14857216/111057141-fc36c580-84bf-11eb-9b48-cb1032b6d4a6.jpg)
+![3](https://user-images.githubusercontent.com/14857216/111057141-fc36c580-84bf-11eb-9b48-cb1032b6d4a6.jpg)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当在主编辑区单击一个组件的时候，会选中这个组件，在状态条上会显示这个组件的编辑id，编辑id的结构为：“组件类型名-sequence”，属性编辑区也会展现其所有的属性和当前值，可以在属性表格上直接修改属性值。属性值被修改之后是处于dirty状态的，需要点击一下表格右上角的保存按钮才能将修改同步刷新到视图。注意处于dirty状态的属性在其名称后面会有一个*。<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当单击属性名称的时候，会展示这个组件属性的相应帮助文档。<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前只支持number，string和boolean类型属性的编辑，其他类型会在下一个大版本中予以支持。<br>
@@ -39,7 +39,7 @@ Interactive development tools for javascript web project ,such as vue react
 
 **4.	操作按钮**<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;按钮处于整个插件界面的右上角，截图如下：<br>
-![4](https://user-images.githubusercontent.com/14857216/111057143-fe008900-84bf-11eb-9605-d0e7395f60bc.jpg)
+![4](https://user-images.githubusercontent.com/14857216/111057143-fe008900-84bf-11eb-9605-d0e7395f60bc.jpg)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;清空：清空主编辑器区所有组件<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除：删除当前选中组件及其子组件<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;code：生成vue文件，并使用vscode的editor来进行展示。这个文件可以手动拷贝到source文件夹下，并换名保存。
