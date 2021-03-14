@@ -1,5 +1,5 @@
 # mxDev
-Interactive development tools for javascript web project ,such as vue react
+visual design tools tools for javascript web project,such as Vue or React
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ui界面的开发设计，如果有可视化设计工具的帮助，无疑会起到事半功倍的效果。在web项目组件化的时代。一款优秀的可视化工具会在概要设计，网站总体设计，交互设计，业务逻辑实现，api测试等方面带来巨大的效率提升。MxDev辅助设计工具致力于帮助设计开发人员更好，更快的进行设计开发，为有效降低软件企业设计开发成本，提高软件质量稳定性，缩短软件交付时间贡献力量。
 
