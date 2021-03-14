@@ -15,7 +15,7 @@ Interactive development tools for javascript web project ,such as vue react
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为采用了先进的组件显示技术，即使对层次较深的组件进行属性修改，视图刷新速度也会保持飞快。
 4.	完善的组件属性编辑支持，包括属性类型及属性说明提示等
 5.	支持html标签和vue第三方库标签<br>
-![1]
+![1](https://user-images.githubusercontent.com/14857216/111057134-f93bd500-84bf-11eb-9588-bbea4c80c68e.jpg)
 
 ### 二．	不同区域说明 ###
 
@@ -54,7 +54,7 @@ Interactive development tools for javascript web project ,such as vue react
 
 
 
-![1](https://user-images.githubusercontent.com/14857216/111057134-f93bd500-84bf-11eb-9588-bbea4c80c68e.jpg)
+
 ![2](https://user-images.githubusercontent.com/14857216/111057138-fb059880-84bf-11eb-8989-2bbfbba8ad69.jpg)
 ![3](https://user-images.githubusercontent.com/14857216/111057141-fc36c580-84bf-11eb-9b48-cb1032b6d4a6.jpg)
 ![4](https://user-images.githubusercontent.com/14857216/111057143-fe008900-84bf-11eb-9605-d0e7395f60bc.jpg)
