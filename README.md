@@ -54,7 +54,7 @@ visual design tools tools for javascript web project,such as Vue or React
 (1)  source图标比target要小，直接拖拽进内部即可<br>
 (2)  source图标比target要大，可以使用“四角进入”拖拽，所谓四角进入，就是source图标或组件的任意一个角（corner）和target对应的角重合的方式(source的角进入到target的角)进行拖拽。<br>
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;个别组件在编辑器区展示时尺寸比较狭窄，拖拽时要有耐心，直到目标父组件呈现黄色闪烁样式的时候，松开鼠标完成拖拽。     
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;个别组件在编辑器区展示时尺寸比较狭窄，拖拽时要有耐心，直到目标父组件呈现黄色闪烁样式的时候，松开鼠标完成拖拽。     
 
 ### 四．	插件安装
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以在vscode的extensions中搜索mxDev自动进行下载安装，也可以自git上下载之后，自己打包安装。<br>
