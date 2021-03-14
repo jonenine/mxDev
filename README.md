@@ -56,8 +56,9 @@ visual design tools tools for javascript web project,such as Vue or React
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;个别组件在编辑器区展示时尺寸比较狭窄，拖拽时要有耐心，直到目标父组件呈现黄色闪烁样式的时候，松开鼠标完成拖拽。     
 
-
-
+### 四．	插件安装
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以在vscode的extensions中搜索mxDev自动进行下载安装，也可以自git上下载之后，自己打包安装。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Github地址：https://github.com/jonenine/mxDev
 
 
 
