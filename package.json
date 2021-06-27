@@ -5,7 +5,7 @@
     "version": "0.1.0",
     "publisher": "jonenine",
     "engines": {
-        "vscode": "^1.43.0"
+        "vscode": "^1.53.0"
     },
     "categories": [
         "Other"
@@ -24,8 +24,23 @@
             {
                 "command": "mxdev.openWebview",
                 "title": "mxDev辅助设计工具"
+            },
+            {
+                "command": "mxdev.test",
+                "title": "mxDev测试",
+                "icon": "images/test.svg"
             }
         ],
+
+        "menus": {
+            "editor/title": [
+                {
+                    "command": "mxdev.test",
+                    "alt": "mxdev.test",
+                    "group": "navigation"
+                }
+            ]
+        },
 
         "viewsContainers": {
             "activitybar": [
@@ -38,13 +53,13 @@
         },
         "views": {
             "mxDev-sidebar": [
-              {
-                "id": "mxDev-start",
-                "name": "mxDev statr",
-                "contextualTitle": "开始"
-              }
+                {
+                    "id": "mxDev-start",
+                    "name": "mxDev statr",
+                    "contextualTitle": "开始"
+                }
             ]
-          },
+        },
         "viewsWelcome": [
             {
                 "view": "mxDev-start",
@@ -52,32 +67,31 @@
             }
         ]
     },
-
     "scripts": {
         "lint": "eslint .",
         "pretest": "npm run lint",
         "test": "node ./test/runTest.js"
     },
     "devDependencies": {
-        "@types/vscode": "^1.53.0",
         "@types/glob": "^7.1.3",
         "@types/mocha": "^8.0.0",
         "@types/node": "^14.0.27",
+        "@types/vscode": "^1.53.0",
         "eslint": "^7.6.0",
         "glob": "^7.1.6",
         "mocha": "^8.1.3",
         "typescript": "^4.0.2",
         "vscode-test": "^1.4.0"
     },
-
     "bugs": {
         "url": "https://github.com/jonenine/mxDev/issues"
     },
-
     "repository": {
         "type": "git",
         "url": "https://github.com/jonenine/mxDev"
     },
-
-    "homepage": "https://github.com/jonenine/mxDev/README.md"
+    "homepage": "https://github.com/jonenine/mxDev/README.md",
+    "dependencies": {
+        "ws": "^7.5.0"
+    }
 }

@@ -26,8 +26,10 @@ function activate(context) {
 
 	context.subscriptions.push(disposable);
 
-    const openWebview = require('./src/openWebview');
-    openWebview(context);
+    const openWebview = require('./src/openWebview2.js');
+    const services = openWebview(context);
+
+    require('./src/ex.js')(context,services);
 }
 // @ts-ignore
 exports.activate = activate;
