@@ -1,5 +1,8 @@
+.idea/**
 .vscode/**
 .vscode-test/**
+backup/**
+docs/**
 test/**
 .gitignore
 .yarnrc

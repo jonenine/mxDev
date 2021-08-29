@@ -12,7 +12,7 @@
 			"runtimeExecutable": "${execPath}",
 			"args": [
 				"--extensionDevelopmentPath=${workspaceFolder}",
-                "--disable-extensions=1"
+                //"--disable-extensions=1"
 			]
 		},
 		{

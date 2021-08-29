@@ -8,17 +8,23 @@ const { launchStaticServer, bindWSServer } = require('./devServer');
 const { info } = console;
 const isWin = os.platform().startsWith('win');
 
+
+info(22222,vscode);
 /**
  * webview使用的文件所在的路径
  */
 let webViewResPath;
 
-function getWebViewContent3() {
-    const entranceHTML = path.join(webViewResPath, 'test3.html');
+/**
+ * 获得ide入口页面的内容
+ * @param {number} servicerPort
+ * @returns 
+ */
+function getIDEEntrancewContent(servicerPort) {
+    const entranceHTML = path.join(webViewResPath, 'IDE-entrance.html');
     //文件系统直接读插件目录中的文件
     let html = fs.readFileSync(entranceHTML, 'utf-8');
-
-    return html;
+    return  html.replace('${mxDev.servicerPort}',servicerPort+'');
 }
 
 /**
@@ -61,11 +67,18 @@ module.exports = function (context) {
     /**
      * 创建服务对象
      */
-    const services = require('./services.js')(basePath);
+    const services = require('./services_0823.js')(basePath);
+
+    /**
+     * 得到配置的服务端口
+     */
+    const servicerPort = vscode.workspace.getConfiguration().get('"mxDev.servicerPort')|| 23331;
+    info('servicerPort',servicerPort);
+
 
     if (!httpServer) {
         try {
-            httpServer = launchStaticServer({ guard: 'webview', port: 23331, baseDirInFileSystem: webViewResPath });
+            httpServer = launchStaticServer({ guard: 'webview', port: servicerPort, baseDirInFileSystem: webViewResPath });
         } catch (e) {
             vscode.window.showErrorMessage('创建web服务器出错' + e);
         }
@@ -93,8 +106,9 @@ module.exports = function (context) {
                     retainContextWhenHidden: true, // webview被隐藏时保持状态，避免被重置
                 }
             );
+
             //设置webview内容
-            panel.webview.html = getWebViewContent3();
+            panel.webview.html = getIDEEntrancewContent(servicerPort);
             //被用户手动关闭
             panel.onDidDispose(_ => {
                 panel = null;

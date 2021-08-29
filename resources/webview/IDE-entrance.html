@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            padding: 0px;
+            background-color: white;
+            border: none;
+        }
+    </style>
+
+    <script defer>
+        const { info } = console;
+
+        function lazyFire(intervalMillion, callBack) {
+            let args, timer;
+
+            function _call() {
+                callBack.apply(null, args);
+                timer = null;
+            }
+
+            return {
+                onFire() {
+                    args = [...arguments];
+                    if (!timer) {
+                        timer = setTimeout(_call, intervalMillion);
+                    }
+                },
+
+                fire() {
+                    const _args = arguments.length ? arguments : args;
+                    callBack.apply(null, _args);
+                }
+            }
+        }
+
+        /**
+         * 切换要编辑的控件时,引起webview的颤抖(layout变化造成的),这里加一个延迟相应来减少抖动
+         * 加上这个功能之后发现内存占用变小了
+         */ 
+        document.onreadystatechange = function(){
+            if (document.readyState == "complete") {
+                const frame_ide = document.getElementById('frame_ide');
+                function setSize() {
+                    frame_ide.width = window.innerWidth;
+                    frame_ide.height = window.innerHeight;
+                }
+
+                setSize();
+
+                const lazyResize = lazyFire(200, () => {
+                    setSize();
+                });
+
+                window.onresize = function () {
+                    lazyResize.onFire();
+                }
+
+            }
+        };
+
+
+    </script>
+
+</head>
+
+<body>
+    <iframe frameborder="0" id="frame_ide"
+        src='http://127.0.0.1:${mxDev.servicerPort}/webview/dist/v2Element.html?viewPath=views/mxDev/webIDE.entrance&remoteService=/service'>
+    </iframe>
+</body>
+
+</html>

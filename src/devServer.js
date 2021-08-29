@@ -2,33 +2,19 @@ const http = require('http');
 const fs = require('fs');
 const url = require('url');
 const path = require('path');
+const zlib = require('zlib');
 
 const WebSocket = require('ws');
 
-const { info } = console;
+const { info, travelDir } = require('./utils.js');
 
 /**
  * @typedef serverParams
- * @property {String} guard
+ * @property {String} guard guard必须是baseDirInFileSystem的最后一层目录
  * @property {number} port
  * @property {String} baseDirInFileSystem
  */
 
-
-/**
- * 获取请求的参数,这个在静态服务器中是无用的
- * @param {String} query
- */
-function getRequestParameter(query) {
-    if (query) {
-        const params = {};
-        query.split('&').forEach(seg => {
-            const kv = seg.split("=");
-            params[kv[0]] = kv[1];
-        });
-        return params;
-    }
-}
 
 const contentTypeMap = {
     ".css": "text/css",
@@ -53,44 +39,63 @@ const contentTypeMap = {
 
 
 /**
+ * open static http server
+ * todo:这个有一定安全问题,应该限制访问ip为127.0.0.1,防止远程访问,还应该加一个动态随机token,防止本机浏览器访问
  * @param {serverParams} params
  */
 function launchStaticServer(params) {
+    const baseDirInFileSystem = params.baseDirInFileSystem;
+
+    /**
+     * 对一个小项目而言,将资源完全缓冲起来也是没问题的
+     */
+    const bufferMap = {};
+    travelDir(baseDirInFileSystem, file => {
+        let data = fs.readFileSync(file);
+        if (file.endsWith('.zip')) {
+            data = zlib.gunzipSync(data);
+            file = file.substring(0, file.length - 4);
+        }
+        bufferMap[file] = data;
+    });
+
     const server = http.createServer(function (request, response) {
         const url0 = url.parse(request.url);
 
         const pathName = url0.pathname;
+        //去掉前面的guard,也就是guard需要是文件目录真正的一层
         let requestPath = path.relative('/' + params.guard, path.normalize(pathName));
         //不再本应用的guard下面
         if (requestPath.startsWith('..')) {
             response.writeHead(401);
             response.end('401 Unauthorized');
         } else {
-            const baseDirInFileSystem = params.baseDirInFileSystem;
-            const filePath = path.join(baseDirInFileSystem, requestPath);
-            fs.readFile(filePath, function (err, data) {
-                if (err) {
-                    response.writeHead(404);
-                    response.end('404 Not Found');
-                } else {
-                    const extname = path.extname(requestPath);
-                    const contentType = contentTypeMap[extname];
-                    if (contentType) {
-                        const headers = { "Content-Type": contentType, 'Cache-Control': 'max-age=1' };
-                        if (extname === '.html') {
-                            headers['X-Frame-Options'] = 'ALLOWALL';
-                        }
-                        response.writeHead(200, headers);
-                    } else {
-                        response.writeHead(200);
+            //注意这里实际上又把guard给加上了
+            let filePath = path.join(baseDirInFileSystem, requestPath);
+            /**
+             * {@type Buffer}
+             */
+            const data = bufferMap[filePath];
+            if (data) {
+                const extname = path.extname(requestPath);
+                const contentType = contentTypeMap[extname];
+                if (contentType) {
+                    const headers = { "Content-Type": contentType, 'Cache-Control': 'max-age=1' };
+                    if (extname === '.html') {
+                        headers['X-Frame-Options'] = 'ALLOWALL';
                     }
-
-                    response.end(data);
+                    response.writeHead(200, headers);
+                } else {
+                    response.writeHead(200);
                 }
-            });
+                //todo:不知道node的buffer能否重复使用
+                response.end(data);
+            } else {
+                response.writeHead(404);
+                response.end('404 Not Found');
+            }
         }
     });
-
 
     server.listen(params.port);
 
@@ -117,21 +122,30 @@ function deserialize(str) {
  * 对于每一个connection,都会创建一个WSListener对象
  */
 class ConnectionListener {
-
+    /** 
+     * @param {WebSocket} ws websocket connection
+     * @param serviceHandlers 
+     * 注册服务方法
+     * serviceName => service function的映射.
+     * 在被调时,框架接受serviceName和参数数组,在参数数组后面加入一个回调方法,在使用这个参数数组调用注册的service function
+     * 回调方法为的内容为将回调方法接受到的参数+callId,回传给调用端
+     * @param channelTemplates
+     */
     constructor(ws, serviceHandlers, channelTemplates) {
-        /**
-         * @type {WebSocket}
-         */
         this.ws = ws;
         this.serviceHandlers = serviceHandlers;
         this.channelTemplates = channelTemplates;
         this.channelHandlers = {};
     }
 
-    send(str) {
+    /**
+     * 发送消息
+     * @param {String} msg 
+     */
+    send(msg) {
         if (this.ws != null) {
             try {
-                this.ws.send(str);
+                this.ws.send(msg);
             } catch (e) {
                 this.connectionClose();
                 console.error('broken pipe!');
@@ -141,6 +155,10 @@ class ConnectionListener {
         }
     }
 
+    /**
+     * 接受消息
+     * @param {String} msg 
+     */
     onmessage(msg) {
         const data = deserialize(msg);
 

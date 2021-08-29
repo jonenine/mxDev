@@ -1,8 +1,8 @@
 {
     "name": "mxdev",
     "displayName": "mxDev",
-    "description": "Interactive development tools for javascript web project ,such as vue or react",
-    "version": "0.1.0",
+    "description": "Interactive development tools for javascript web project ,such as vue or react project",
+    "version": "0.4.0",
     "publisher": "jonenine",
     "engines": {
         "vscode": "^1.53.0"
@@ -16,6 +16,17 @@
     ],
     "main": "./extension.js",
     "contributes": {
+        "configuration": {
+            "type": "object",
+            "title": "mxDev可视化开发",
+            "properties": {
+                "mxDev.servicerPort": {
+                    "type": "number",
+                    "default": 23331,
+                    "description": "服务端口"
+                }
+            }
+        },
         "commands": [
             {
                 "command": "mxdev.helloWorld",
@@ -31,7 +42,6 @@
                 "icon": "images/test.svg"
             }
         ],
-
         "menus": {
             "editor/title": [
                 {
@@ -41,7 +51,6 @@
                 }
             ]
         },
-
         "viewsContainers": {
             "activitybar": [
                 {
